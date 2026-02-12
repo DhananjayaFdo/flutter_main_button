@@ -1,0 +1,27 @@
+name: flutter_main_button
+description: A versatile Flutter button widget supporting single and dual-button layouts with loading states, icons, and extensive customization options.
+version: 1.0.0
+# TODO: Replace with your actual GitHub username before publishing
+# homepage: https://github.com/DhananjayaFdo/flutter_main_button
+# repository: https://github.com/DhananjayaFdo/flutter_main_button
+# issue_tracker: https://github.com/DhananjayaFdo/flutter_main_button/issues
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+topics:
+  - button
+  - widget
+  - ui
+  - material-design
+  - customizable

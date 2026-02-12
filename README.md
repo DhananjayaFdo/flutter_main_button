@@ -9,7 +9,7 @@ A versatile and customizable Flutter button widget that supports both single and
 🎨 **Fully Customizable**: Colors, borders, radius, padding, and more  
 📱 **Icons Support**: Prefix and suffix icons for enhanced UX  
 ♿ **Accessibility**: Proper disabled state handling  
-🎯 **Type Safe**: Strongly typed with comprehensive documentation  
+🎯 **Type Safe**: Strongly typed with comprehensive documentation
 
 ## Installation
 
@@ -99,7 +99,7 @@ MainButton.dual(
   backgroundColor: Colors.grey.shade300,
   textColor: Colors.black,
   onPressed: () => Navigator.pop(context),
-  
+
   // Second button (typically Confirm/Next)
   secondText: "Confirm",
   secondBackgroundColor: Colors.blue,
@@ -116,7 +116,7 @@ MainButton.dual(
   prefixIcon: Icons.arrow_back,
   backgroundColor: Colors.grey,
   onPressed: () => previousPage(),
-  
+
   // Next button
   secondText: "Next",
   secondSuffixIcon: Icons.arrow_forward,
@@ -161,7 +161,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   Future<void> handleRegister() async {
     setState(() => isLoading = true);
-    
+
     try {
       await registerUser();
       // Success handling
@@ -203,50 +203,51 @@ MainButton(
 
 ### MainButton (Single)
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `text` | `String?` | - | Text displayed on the button |
-| `onPressed` | `VoidCallback?` | - | Callback when button is tapped |
-| `backgroundColor` | `Color?` | `Theme primary` | Button background color |
-| `textColor` | `Color?` | `Colors.white` | Text color |
-| `isLoading` | `bool` | `false` | Shows loading spinner when true |
-| `isDisabled` | `bool` | `false` | Disables button interactions |
-| `height` | `double?` | `60` | Button height |
-| `width` | `double?` | `double.infinity` | Button width (single layout only) |
-| `prefixIcon` | `IconData?` | - | Icon displayed before text |
-| `suffixIcon` | `IconData?` | - | Icon displayed after text |
-| `iconColor` | `Color?` | `textColor` | Icon color |
-| `iconSize` | `double?` | `20` | Icon size |
-| `iconSpacing` | `double` | `8` | Space between icon and text |
-| `fontSize` | `double?` | `16` | Text font size |
-| `fontWeight` | `FontWeight?` | `FontWeight.w600` | Text font weight |
-| `borderRadius` | `BorderRadius?` | `BorderRadius.circular(15)` | Button border radius |
-| `border` | `BoxBorder?` | - | Button border |
-| `padding` | `EdgeInsetsGeometry?` | `EdgeInsets.symmetric(horizontal: 16)` | Internal padding |
+| Parameter         | Type                  | Default                                | Description                       |
+| ----------------- | --------------------- | -------------------------------------- | --------------------------------- |
+| `text`            | `String?`             | -                                      | Text displayed on the button      |
+| `onPressed`       | `VoidCallback?`       | -                                      | Callback when button is tapped    |
+| `backgroundColor` | `Color?`              | `Theme primary`                        | Button background color           |
+| `textColor`       | `Color?`              | `Colors.white`                         | Text color                        |
+| `isLoading`       | `bool`                | `false`                                | Shows loading spinner when true   |
+| `isDisabled`      | `bool`                | `false`                                | Disables button interactions      |
+| `height`          | `double?`             | `60`                                   | Button height                     |
+| `width`           | `double?`             | `double.infinity`                      | Button width (single layout only) |
+| `prefixIcon`      | `IconData?`           | -                                      | Icon displayed before text        |
+| `suffixIcon`      | `IconData?`           | -                                      | Icon displayed after text         |
+| `iconColor`       | `Color?`              | `textColor`                            | Icon color                        |
+| `iconSize`        | `double?`             | `20`                                   | Icon size                         |
+| `iconSpacing`     | `double`              | `8`                                    | Space between icon and text       |
+| `fontSize`        | `double?`             | `16`                                   | Text font size                    |
+| `fontWeight`      | `FontWeight?`         | `FontWeight.w600`                      | Text font weight                  |
+| `borderRadius`    | `BorderRadius?`       | `BorderRadius.circular(15)`            | Button border radius              |
+| `border`          | `BoxBorder?`          | -                                      | Button border                     |
+| `padding`         | `EdgeInsetsGeometry?` | `EdgeInsets.symmetric(horizontal: 16)` | Internal padding                  |
 
 ### MainButton.dual (Dual Layout)
 
 In addition to the single button parameters, the dual layout includes:
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `secondText` | `String?` | - | Text for second button |
-| `secondOnPressed` | `VoidCallback?` | - | Callback for second button |
-| `secondBackgroundColor` | `Color?` | `Theme primary` | Second button background |
-| `secondTextColor` | `Color?` | `Colors.white` | Second button text color |
-| `secondIsLoading` | `bool` | `false` | Loading state for second button |
-| `secondIsDisabled` | `bool` | `false` | Disabled state for second button |
-| `secondPrefixIcon` | `IconData?` | - | Second button prefix icon |
-| `secondSuffixIcon` | `IconData?` | - | Second button suffix icon |
-| `secondIconColor` | `Color?` | - | Second button icon color |
-| `secondIconSize` | `double?` | `20` | Second button icon size |
-| `secondBorderRadius` | `BorderRadius?` | - | Second button border radius |
-| `secondBorder` | `BoxBorder?` | - | Second button border |
-| `buttonSpacing` | `double` | `10` | Space between the two buttons |
+| Parameter               | Type            | Default         | Description                      |
+| ----------------------- | --------------- | --------------- | -------------------------------- |
+| `secondText`            | `String?`       | -               | Text for second button           |
+| `secondOnPressed`       | `VoidCallback?` | -               | Callback for second button       |
+| `secondBackgroundColor` | `Color?`        | `Theme primary` | Second button background         |
+| `secondTextColor`       | `Color?`        | `Colors.white`  | Second button text color         |
+| `secondIsLoading`       | `bool`          | `false`         | Loading state for second button  |
+| `secondIsDisabled`      | `bool`          | `false`         | Disabled state for second button |
+| `secondPrefixIcon`      | `IconData?`     | -               | Second button prefix icon        |
+| `secondSuffixIcon`      | `IconData?`     | -               | Second button suffix icon        |
+| `secondIconColor`       | `Color?`        | -               | Second button icon color         |
+| `secondIconSize`        | `double?`       | `20`            | Second button icon size          |
+| `secondBorderRadius`    | `BorderRadius?` | -               | Second button border radius      |
+| `secondBorder`          | `BoxBorder?`    | -               | Second button border             |
+| `buttonSpacing`         | `double`        | `10`            | Space between the two buttons    |
 
 ## Common Use Cases
 
 ### 1. Form Submit Button
+
 ```dart
 MainButton(
   text: "Submit Form",
@@ -256,6 +257,7 @@ MainButton(
 ```
 
 ### 2. Dialog Actions
+
 ```dart
 MainButton.dual(
   text: "Cancel",
@@ -269,6 +271,7 @@ MainButton.dual(
 ```
 
 ### 3. Navigation Buttons
+
 ```dart
 MainButton.dual(
   text: "Back",
@@ -281,6 +284,7 @@ MainButton.dual(
 ```
 
 ### 4. Authentication Buttons
+
 ```dart
 // Login button
 MainButton(
@@ -303,11 +307,13 @@ MainButton(
 ## Best Practices
 
 1. **Loading States**: Always disable the button when loading
+
    ```dart
    onPressed: isLoading ? null : handleAction
    ```
 
 2. **Form Validation**: Use with form validation
+
    ```dart
    MainButton(
      text: "Submit",
@@ -316,6 +322,7 @@ MainButton(
    ```
 
 3. **Async Operations**: Handle async properly
+
    ```dart
    onPressed: () async {
      setState(() => isLoading = true);
@@ -343,26 +350,27 @@ If you're migrating from the original `MainBtn` widget:
 
 ### Parameter Name Changes:
 
-| Old | New |
-|-----|-----|
-| `fText` | `text` |
-| `fOnPressed` | `onPressed` |
-| `fBackColor` | `backgroundColor` |
-| `fTextColor` | `textColor` |
-| `fPrefixIcon` | `prefixIcon` |
-| `fSuffixIcon` | `suffixIcon` |
-| `fIsLoading` | `isLoading` |
-| `fIsIgnore` | `isDisabled` |
-| `fRadius` | `borderRadius` |
-| `fBorder` | `border` |
-| `MainBtn.row` | `MainButton.dual` |
-| `sText` | `secondText` |
-| `sOnPressed` | `secondOnPressed` |
+| Old                               | New                   |
+| --------------------------------- | --------------------- |
+| `fText`                           | `text`                |
+| `fOnPressed`                      | `onPressed`           |
+| `fBackColor`                      | `backgroundColor`     |
+| `fTextColor`                      | `textColor`           |
+| `fPrefixIcon`                     | `prefixIcon`          |
+| `fSuffixIcon`                     | `suffixIcon`          |
+| `fIsLoading`                      | `isLoading`           |
+| `fIsIgnore`                       | `isDisabled`          |
+| `fRadius`                         | `borderRadius`        |
+| `fBorder`                         | `border`              |
+| `MainBtn.row`                     | `MainButton.dual`     |
+| `sText`                           | `secondText`          |
+| `sOnPressed`                      | `secondOnPressed`     |
 | (etc for all second button props) | (add `second` prefix) |
 
 ### Example Migration:
 
 **Before:**
+
 ```dart
 MainBtn.row(
   fText: "Cancel",
@@ -375,6 +383,7 @@ MainBtn.row(
 ```
 
 **After:**
+
 ```dart
 MainButton.dual(
   text: "Cancel",
@@ -400,6 +409,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-If you find this package useful, please give it a ⭐ on [GitHub](https://github.com/YOURUSERNAME/flutter_main_button)!
+If you find this package useful, please give it a ⭐ on [GitHub](https://github.com/DhananjayaFdo/flutter_main_button)!
 
-For issues and feature requests, visit the [issue tracker](https://github.com/YOURUSERNAME/flutter_main_button/issues).
+For issues and feature requests, visit the [issue tracker](https://github.com/DhananjayaFdo/flutter_main_button/issues).
