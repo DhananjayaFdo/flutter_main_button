@@ -17,9 +17,9 @@ A versatile and customizable Flutter button widget that supports both single and
 
 ## Designs
 
-|                              |                              |                              |                              |
-| :--------------------------: | :--------------------------: | :--------------------------: | :--------------------------: |
-| ![Alt text 1](assets/01.png) | ![Alt text 2](assets/02.png) | ![Alt text 3](assets/03.png) | ![Alt text 3](assets/04.png) |
+|                                                                                                     |                                                                                                     |                                                                                                     |                                                                                                     |
+| :-------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
+| ![Design 1](https://raw.githubusercontent.com/DhananjayaFdo/flutter_main_button/main/assets/01.png) | ![Design 2](https://raw.githubusercontent.com/DhananjayaFdo/flutter_main_button/main/assets/02.png) | ![Design 3](https://raw.githubusercontent.com/DhananjayaFdo/flutter_main_button/main/assets/03.png) | ![Design 4](https://raw.githubusercontent.com/DhananjayaFdo/flutter_main_button/main/assets/04.png) |
 
 ## Installation
 
@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_main_button: ^1.1.0
+  flutter_main_button: ^1.1.1
 ```
 
 Then run:

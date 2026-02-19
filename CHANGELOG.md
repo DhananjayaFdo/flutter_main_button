@@ -41,3 +41,9 @@
   - Custom gradient
   - Custom shadow
   - Custom child widget
+
+## [1.1.1] - 2025-02-19
+
+### Fixed
+
+- Readme file image load
