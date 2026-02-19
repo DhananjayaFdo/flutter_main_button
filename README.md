@@ -1,15 +1,25 @@
 # flutter_main_button
 
-A versatile and customizable Flutter button widget that supports both single and dual-button layouts with built-in loading states, icons, and extensive styling options.
+A versatile and customizable Flutter button widget that supports both single and dual-button layouts with built-in loading states, icons, gradients, shadows, and extensive styling options.
 
 ## Features
 
 ✨ **Single & Dual Layouts**: Use as a single button or display two buttons side-by-side  
 🔄 **Loading States**: Built-in loading spinner with automatic state handling  
-🎨 **Fully Customizable**: Colors, borders, radius, padding, and more  
-📱 **Icons Support**: Prefix and suffix icons for enhanced UX  
+🎨 **Fully Customizable**: Colors, borders, radius, padding, gradients, and shadows  
+📱 **Icons & Widgets**: Prefix/suffix icons OR custom widgets  
+🌈 **Gradient Support**: Linear and radial gradients  
+🎭 **Custom Shapes**: Rectangle or circle shapes  
+🖼️ **Background Images**: Decoration images support  
+👶 **Custom Children**: Replace button content with any widget  
 ♿ **Accessibility**: Proper disabled state handling  
 🎯 **Type Safe**: Strongly typed with comprehensive documentation
+
+## Designs
+
+|                              |                              |                              |                              |
+| :--------------------------: | :--------------------------: | :--------------------------: | :--------------------------: |
+| ![Alt text 1](assets/01.png) | ![Alt text 2](assets/02.png) | ![Alt text 3](assets/03.png) | ![Alt text 3](assets/04.png) |
 
 ## Installation
 
@@ -17,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_main_button: ^1.0.0
+  flutter_main_button: ^1.0.1
 ```
 
 Then run:
@@ -72,6 +82,115 @@ MainButton(
 )
 ```
 
+### Button with Custom Widgets (NEW!)
+
+Use `prefix` and `suffix` for completely custom widgets:
+
+```dart
+MainButton(
+  text: "Premium",
+  prefix: Container(
+    padding: EdgeInsets.all(4),
+    decoration: BoxDecoration(
+      color: Colors.amber,
+      shape: BoxShape.circle,
+    ),
+    child: Icon(Icons.star, size: 16, color: Colors.white),
+  ),
+  backgroundColor: Colors.purple,
+  onPressed: () => upgradeToPremium(),
+)
+```
+
+### Button with Gradient (NEW!)
+
+```dart
+MainButton(
+  text: "Gradient Button",
+  gradient: LinearGradient(
+    colors: [Colors.purple, Colors.blue],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  onPressed: () => handleAction(),
+)
+```
+
+### Button with Shadow (NEW!)
+
+```dart
+MainButton(
+  text: "Elevated Button",
+  backgroundColor: Colors.white,
+  textColor: Colors.black87,
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.2),
+      blurRadius: 10,
+      offset: Offset(0, 4),
+    ),
+  ],
+  onPressed: () => handleAction(),
+)
+```
+
+### Circular Button with Shape (NEW!)
+
+```dart
+MainButton(
+  prefixIcon: Icons.add,
+  shape: BoxShape.circle,
+  height: 60,
+  width: 60,
+  backgroundColor: Colors.blue,
+  onPressed: () => addItem(),
+)
+```
+
+### Button with Background Image (NEW!)
+
+```dart
+MainButton(
+  text: "Explore",
+  image: DecorationImage(
+    image: AssetImage('assets/pattern.png'),
+    fit: BoxFit.cover,
+    opacity: 0.3,
+  ),
+  textColor: Colors.white,
+  onPressed: () => explore(),
+)
+```
+
+### Custom Child Widget (NEW!)
+
+Replace the entire button content:
+
+```dart
+MainButton(
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      CircleAvatar(
+        backgroundImage: NetworkImage('https://avatar.url'),
+        radius: 16,
+      ),
+      SizedBox(width: 8),
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('John Doe', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('View Profile', style: TextStyle(fontSize: 12)),
+        ],
+      ),
+    ],
+  ),
+  height: 70,
+  onPressed: () => viewProfile(),
+)
+```
+
 ### Custom Styling
 
 ```dart
@@ -107,95 +226,51 @@ MainButton.dual(
 )
 ```
 
-### Dual Buttons with Different Icons
+### Dual Buttons with Gradients (NEW!)
 
 ```dart
 MainButton.dual(
-  // Previous button
-  text: "Previous",
-  prefixIcon: Icons.arrow_back,
-  backgroundColor: Colors.grey,
-  onPressed: () => previousPage(),
-
-  // Next button
-  secondText: "Next",
-  secondSuffixIcon: Icons.arrow_forward,
-  secondOnPressed: () => nextPage(),
-)
-```
-
-### In Dialogs
-
-```dart
-showDialog(
-  context: context,
-  builder: (context) => AlertDialog(
-    title: Text("Confirm Action"),
-    content: Text("Are you sure you want to proceed?"),
-    actions: [
-      MainButton.dual(
-        height: 45,
-        text: "Cancel",
-        backgroundColor: Colors.grey.shade200,
-        textColor: Colors.black87,
-        onPressed: () => Navigator.pop(context, false),
-        secondText: "Confirm",
-        secondBackgroundColor: Colors.red,
-        secondOnPressed: () => Navigator.pop(context, true),
-      ),
-    ],
+  text: "Cancel",
+  gradient: LinearGradient(
+    colors: [Colors.grey.shade400, Colors.grey.shade600],
   ),
-);
-```
+  onPressed: () => cancel(),
 
-### With Loading State in Forms
-
-```dart
-class RegistrationForm extends StatefulWidget {
-  @override
-  _RegistrationFormState createState() => _RegistrationFormState();
-}
-
-class _RegistrationFormState extends State<RegistrationForm> {
-  bool isLoading = false;
-
-  Future<void> handleRegister() async {
-    setState(() => isLoading = true);
-
-    try {
-      await registerUser();
-      // Success handling
-    } catch (e) {
-      // Error handling
-    } finally {
-      if (mounted) setState(() => isLoading = false);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MainButton(
-      text: "Register New User",
-      isLoading: isLoading,
-      onPressed: isLoading ? null : handleRegister,
-    );
-  }
-}
-```
-
-### Disabled Button
-
-```dart
-MainButton(
-  text: "Submit",
-  onPressed: null, // null onPressed disables the button
+  secondText: "Upgrade",
+  secondGradient: LinearGradient(
+    colors: [Colors.purple, Colors.pink],
+  ),
+  secondPrefix: Icon(Icons.star, size: 20),
+  secondOnPressed: () => upgrade(),
 )
+```
 
-// Or explicitly disabled
-MainButton(
-  text: "Submit",
-  isDisabled: true,
-  onPressed: () => handleSubmit(),
+### Dual Buttons with Shadows (NEW!)
+
+```dart
+MainButton.dual(
+  text: "Maybe",
+  backgroundColor: Colors.white,
+  textColor: Colors.black87,
+  boxShadow: [
+    BoxShadow(
+      color: Colors.grey.shade300,
+      blurRadius: 8,
+      offset: Offset(0, 2),
+    ),
+  ],
+  onPressed: () => handleMaybe(),
+
+  secondText: "Yes!",
+  secondBackgroundColor: Colors.green,
+  secondBoxShadow: [
+    BoxShadow(
+      color: Colors.green.withOpacity(0.4),
+      blurRadius: 12,
+      offset: Offset(0, 4),
+    ),
+  ],
+  secondOnPressed: () => handleYes(),
 )
 ```
 
@@ -203,30 +278,61 @@ MainButton(
 
 ### MainButton (Single)
 
-| Parameter         | Type                  | Default                                | Description                       |
-| ----------------- | --------------------- | -------------------------------------- | --------------------------------- |
-| `text`            | `String?`             | -                                      | Text displayed on the button      |
-| `onPressed`       | `VoidCallback?`       | -                                      | Callback when button is tapped    |
-| `backgroundColor` | `Color?`              | `Theme primary`                        | Button background color           |
-| `textColor`       | `Color?`              | `Colors.white`                         | Text color                        |
-| `isLoading`       | `bool`                | `false`                                | Shows loading spinner when true   |
-| `isDisabled`      | `bool`                | `false`                                | Disables button interactions      |
-| `height`          | `double?`             | `60`                                   | Button height                     |
-| `width`           | `double?`             | `double.infinity`                      | Button width (single layout only) |
-| `prefixIcon`      | `IconData?`           | -                                      | Icon displayed before text        |
-| `suffixIcon`      | `IconData?`           | -                                      | Icon displayed after text         |
-| `iconColor`       | `Color?`              | `textColor`                            | Icon color                        |
-| `iconSize`        | `double?`             | `20`                                   | Icon size                         |
-| `iconSpacing`     | `double`              | `8`                                    | Space between icon and text       |
-| `fontSize`        | `double?`             | `16`                                   | Text font size                    |
-| `fontWeight`      | `FontWeight?`         | `FontWeight.w600`                      | Text font weight                  |
-| `borderRadius`    | `BorderRadius?`       | `BorderRadius.circular(15)`            | Button border radius              |
-| `border`          | `BoxBorder?`          | -                                      | Button border                     |
-| `padding`         | `EdgeInsetsGeometry?` | `EdgeInsets.symmetric(horizontal: 16)` | Internal padding                  |
+#### Core Properties
+
+| Parameter         | Type            | Default           | Description                       |
+| ----------------- | --------------- | ----------------- | --------------------------------- |
+| `text`            | `String?`       | -                 | Text displayed on the button      |
+| `onPressed`       | `VoidCallback?` | -                 | Callback when button is tapped    |
+| `backgroundColor` | `Color?`        | `Theme primary`   | Button background color           |
+| `textColor`       | `Color?`        | `Colors.white`    | Text color                        |
+| `isLoading`       | `bool`          | `false`           | Shows loading spinner when true   |
+| `isDisabled`      | `bool`          | `false`           | Disables button interactions      |
+| `height`          | `double?`       | `60`              | Button height                     |
+| `width`           | `double?`       | `double.infinity` | Button width (single layout only) |
+
+#### Icon Properties
+
+| Parameter     | Type        | Default     | Description                 |
+| ------------- | ----------- | ----------- | --------------------------- |
+| `prefixIcon`  | `IconData?` | -           | Icon displayed before text  |
+| `suffixIcon`  | `IconData?` | -           | Icon displayed after text   |
+| `iconColor`   | `Color?`    | `textColor` | Icon color                  |
+| `iconSize`    | `double?`   | `20`        | Icon size                   |
+| `iconSpacing` | `double`    | `8`         | Space between icon and text |
+
+#### Widget Properties (NEW!)
+
+| Parameter | Type      | Default | Description                                      |
+| --------- | --------- | ------- | ------------------------------------------------ |
+| `prefix`  | `Widget?` | -       | Custom widget before text (overrides prefixIcon) |
+| `suffix`  | `Widget?` | -       | Custom widget after text (overrides suffixIcon)  |
+| `child`   | `Widget?` | -       | Custom child widget (replaces entire content)    |
+
+#### Styling Properties
+
+| Parameter      | Type                  | Default                                | Description          |
+| -------------- | --------------------- | -------------------------------------- | -------------------- |
+| `fontSize`     | `double?`             | `16`                                   | Text font size       |
+| `fontWeight`   | `FontWeight?`         | `FontWeight.w600`                      | Text font weight     |
+| `borderRadius` | `BorderRadius?`       | `BorderRadius.circular(15)`            | Button border radius |
+| `border`       | `BoxBorder?`          | -                                      | Button border        |
+| `padding`      | `EdgeInsetsGeometry?` | `EdgeInsets.symmetric(horizontal: 16)` | Internal padding     |
+
+#### Advanced Styling (NEW!)
+
+| Parameter   | Type               | Default              | Description                     |
+| ----------- | ------------------ | -------------------- | ------------------------------- |
+| `gradient`  | `Gradient?`        | -                    | Background gradient             |
+| `boxShadow` | `List<BoxShadow>?` | -                    | Button shadow                   |
+| `image`     | `DecorationImage?` | -                    | Background image                |
+| `shape`     | `BoxShape?`        | `BoxShape.rectangle` | Button shape (rectangle/circle) |
 
 ### MainButton.dual (Dual Layout)
 
-In addition to the single button parameters, the dual layout includes:
+All single button properties, plus:
+
+#### Second Button Properties
 
 | Parameter               | Type            | Default         | Description                      |
 | ----------------------- | --------------- | --------------- | -------------------------------- |
@@ -242,65 +348,265 @@ In addition to the single button parameters, the dual layout includes:
 | `secondIconSize`        | `double?`       | `20`            | Second button icon size          |
 | `secondBorderRadius`    | `BorderRadius?` | -               | Second button border radius      |
 | `secondBorder`          | `BoxBorder?`    | -               | Second button border             |
-| `buttonSpacing`         | `double`        | `10`            | Space between the two buttons    |
+| `buttonSpacing`         | `double`        | `10`            | Space between two buttons        |
 
-## Common Use Cases
+#### Second Button Widgets (NEW!)
 
-### 1. Form Submit Button
+| Parameter      | Type      | Default | Description                            |
+| -------------- | --------- | ------- | -------------------------------------- |
+| `secondPrefix` | `Widget?` | -       | Custom prefix widget for second button |
+| `secondSuffix` | `Widget?` | -       | Custom suffix widget for second button |
+| `secondChild`  | `Widget?` | -       | Custom child for second button         |
+
+#### Second Button Styling (NEW!)
+
+| Parameter         | Type               | Default | Description                        |
+| ----------------- | ------------------ | ------- | ---------------------------------- |
+| `secondGradient`  | `Gradient?`        | -       | Gradient for second button         |
+| `secondBoxShadow` | `List<BoxShadow>?` | -       | Shadow for second button           |
+| `secondImage`     | `DecorationImage?` | -       | Background image for second button |
+| `secondShape`     | `BoxShape?`        | -       | Shape for second button            |
+
+## Advanced Examples
+
+### 1. Premium Upgrade Button
 
 ```dart
 MainButton(
-  text: "Submit Form",
-  isLoading: state.isSubmitting,
-  onPressed: state.isSubmitting ? null : () => submitForm(),
+  height: 70,
+  gradient: LinearGradient(
+    colors: [Colors.purple.shade400, Colors.deepPurple.shade600],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.purple.withOpacity(0.5),
+      blurRadius: 20,
+      offset: Offset(0, 10),
+    ),
+  ],
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(Icons.workspace_premium, color: Colors.amber, size: 28),
+      SizedBox(width: 12),
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Upgrade to Premium',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'Unlock all features',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+  onPressed: () => upgradeToPremium(),
 )
 ```
 
-### 2. Dialog Actions
+### 2. Social Login Buttons
 
 ```dart
-MainButton.dual(
-  text: "Cancel",
-  backgroundColor: Colors.grey.shade300,
-  textColor: Colors.black,
-  onPressed: () => Navigator.pop(context),
-  secondText: "Delete",
-  secondBackgroundColor: Colors.red,
-  secondOnPressed: () => handleDelete(),
-)
-```
-
-### 3. Navigation Buttons
-
-```dart
-MainButton.dual(
-  text: "Back",
-  prefixIcon: Icons.arrow_back,
-  onPressed: () => previousStep(),
-  secondText: "Next",
-  secondSuffixIcon: Icons.arrow_forward,
-  secondOnPressed: () => nextStep(),
-)
-```
-
-### 4. Authentication Buttons
-
-```dart
-// Login button
-MainButton(
-  text: "Sign In",
-  isLoading: isLoggingIn,
-  onPressed: () => handleLogin(),
-)
-
-// Social login with icon
+// Google
 MainButton(
   text: "Continue with Google",
-  prefixIcon: Icons.login,
   backgroundColor: Colors.white,
   textColor: Colors.black87,
   border: Border.all(color: Colors.grey.shade300),
+  prefix: Image.asset('assets/google_logo.png', height: 24),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.grey.shade200,
+      blurRadius: 8,
+      offset: Offset(0, 2),
+    ),
+  ],
   onPressed: () => signInWithGoogle(),
+)
+
+// Apple
+MainButton(
+  text: "Continue with Apple",
+  backgroundColor: Colors.black,
+  prefixIcon: Icons.apple,
+  onPressed: () => signInWithApple(),
+)
+```
+
+### 3. Floating Action Button Style
+
+```dart
+MainButton(
+  shape: BoxShape.circle,
+  height: 56,
+  width: 56,
+  backgroundColor: Colors.blue,
+  prefixIcon: Icons.add,
+  iconColor: Colors.white,
+  iconSize: 24,
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.3),
+      blurRadius: 12,
+      offset: Offset(0, 6),
+    ),
+  ],
+  onPressed: () => createNew(),
+)
+```
+
+### 4. Card-Style Button
+
+```dart
+MainButton(
+  height: 80,
+  backgroundColor: Colors.white,
+  border: Border.all(color: Colors.grey.shade200),
+  borderRadius: BorderRadius.circular(16),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.grey.shade100,
+      blurRadius: 10,
+      offset: Offset(0, 4),
+    ),
+  ],
+  child: Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20),
+    child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(Icons.credit_card, color: Colors.blue),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Add Payment Method',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+              ),
+              Text(
+                'Credit or debit card',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+      ],
+    ),
+  ),
+  onPressed: () => addPaymentMethod(),
+)
+```
+
+### 5. Call-to-Action Button
+
+```dart
+MainButton(
+  height: 65,
+  gradient: LinearGradient(
+    colors: [Colors.orange.shade400, Colors.red.shade400],
+  ),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.orange.withOpacity(0.5),
+      blurRadius: 15,
+      offset: Offset(0, 8),
+    ),
+  ],
+  suffix: Container(
+    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.3),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Text(
+      '50% OFF',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 10,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(Icons.shopping_bag, color: Colors.white),
+      SizedBox(width: 8),
+      Text(
+        'Shop Now',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ],
+  ),
+  onPressed: () => shopNow(),
+)
+```
+
+### 6. Dual Gradient Buttons
+
+```dart
+MainButton.dual(
+  height: 55,
+
+  // Cancel button with subtle gradient
+  text: "Not Now",
+  gradient: LinearGradient(
+    colors: [Colors.grey.shade300, Colors.grey.shade400],
+  ),
+  textColor: Colors.black87,
+  onPressed: () => dismiss(),
+
+  // Confirm button with vibrant gradient
+  secondText: "Enable",
+  secondGradient: LinearGradient(
+    colors: [Colors.blue.shade400, Colors.purple.shade400],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  secondBoxShadow: [
+    BoxShadow(
+      color: Colors.blue.withOpacity(0.4),
+      blurRadius: 12,
+      offset: Offset(0, 6),
+    ),
+  ],
+  secondSuffix: Icon(Icons.check_circle, size: 20, color: Colors.white),
+  secondOnPressed: () => enable(),
 )
 ```
 
@@ -312,103 +618,46 @@ MainButton(
    onPressed: isLoading ? null : handleAction
    ```
 
-2. **Form Validation**: Use with form validation
+2. **Gradients**: Use gradients sparingly for emphasis
 
    ```dart
-   MainButton(
-     text: "Submit",
-     onPressed: isFormValid ? handleSubmit : null,
-   )
+   gradient: LinearGradient(colors: [primary, secondary])
    ```
 
-3. **Async Operations**: Handle async properly
+3. **Shadows**: Subtle shadows improve perceived depth
 
    ```dart
-   onPressed: () async {
-     setState(() => isLoading = true);
-     try {
-       await performAction();
-     } finally {
-       if (mounted) setState(() => isLoading = false);
-     }
-   }
+   boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4))]
    ```
 
-4. **Dialogs**: Use dual layout for better UX
+4. **Custom Children**: Use for complex button content
+
    ```dart
-   MainButton.dual(
-     text: "Cancel",
-     onPressed: () => Navigator.pop(context),
-     secondText: "Confirm",
-     secondOnPressed: handleConfirm,
-   )
+   child: Row(children: [...]) // Full control over content
    ```
 
-## Migration from Original MainBtn
+5. **Circular Buttons**: Set equal height/width with circle shape
+   ```dart
+   shape: BoxShape.circle, height: 56, width: 56
+   ```
 
-If you're migrating from the original `MainBtn` widget:
+## Common Use Cases
 
-### Parameter Name Changes:
-
-| Old                               | New                   |
-| --------------------------------- | --------------------- |
-| `fText`                           | `text`                |
-| `fOnPressed`                      | `onPressed`           |
-| `fBackColor`                      | `backgroundColor`     |
-| `fTextColor`                      | `textColor`           |
-| `fPrefixIcon`                     | `prefixIcon`          |
-| `fSuffixIcon`                     | `suffixIcon`          |
-| `fIsLoading`                      | `isLoading`           |
-| `fIsIgnore`                       | `isDisabled`          |
-| `fRadius`                         | `borderRadius`        |
-| `fBorder`                         | `border`              |
-| `MainBtn.row`                     | `MainButton.dual`     |
-| `sText`                           | `secondText`          |
-| `sOnPressed`                      | `secondOnPressed`     |
-| (etc for all second button props) | (add `second` prefix) |
-
-### Example Migration:
-
-**Before:**
-
-```dart
-MainBtn.row(
-  fText: "Cancel",
-  fBackColor: Colors.grey,
-  fOnPressed: () => Navigator.pop(context),
-  sText: "Confirm",
-  sBackColor: Colors.blue,
-  sOnPressed: handleConfirm,
-)
-```
-
-**After:**
-
-```dart
-MainButton.dual(
-  text: "Cancel",
-  backgroundColor: Colors.grey,
-  onPressed: () => Navigator.pop(context),
-  secondText: "Confirm",
-  secondBackgroundColor: Colors.blue,
-  secondOnPressed: handleConfirm,
-)
-```
-
-## Example App
-
-See the [example](example) directory for a complete working demo showing all features.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+✅ Form submit buttons  
+✅ Dialog actions  
+✅ Navigation buttons  
+✅ Social authentication  
+✅ Call-to-action buttons  
+✅ Floating action buttons  
+✅ Card-style buttons  
+✅ Premium upgrade buttons
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) file.
 
 ## Support
 
-If you find this package useful, please give it a ⭐ on [GitHub](https://github.com/DhananjayaFdo/flutter_main_button)!
-
-For issues and feature requests, visit the [issue tracker](https://github.com/DhananjayaFdo/flutter_main_button/issues).
+⭐ Star on [GitHub](https://github.com/DhananjayaFdo/flutter_main_button)  
+🐛 [Report issues](https://github.com/DhananjayaFdo/flutter_main_button/issues)  
+💬 [Discussions](https://github.com/DhananjayaFdo/flutter_main_button/discussions)

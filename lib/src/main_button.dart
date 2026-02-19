@@ -129,6 +129,48 @@ class MainButton extends StatelessWidget {
   /// Spacing between the two buttons in dual layout.
   final double buttonSpacing;
 
+  /// Prefix widget for the first button.
+  final Widget? prefix;
+
+  /// Suffix widget for the first button.
+  final Widget? suffix;
+
+  /// Suffix widget for the second button.
+  final Widget? secondSuffix;
+
+  /// Prefix widget for the second button.
+  final Widget? secondPrefix;
+
+  /// Gradient for the first button.
+  final Gradient? gradient;
+
+  /// Gradient for the second button.
+  final Gradient? secondGradient;
+
+  /// Box shadow for the button.
+  final List<BoxShadow>? boxShadow;
+
+  /// Box shadow for the second button.
+  final List<BoxShadow>? secondBoxShadow;
+
+  /// Image for the first button.
+  final DecorationImage? image;
+
+  /// Image for the second button.
+  final DecorationImage? secondImage;
+
+  /// Shape for the first button.
+  final BoxShape? shape;
+
+  /// Shape for the second button.
+  final BoxShape? secondShape;
+
+  /// Child widget for the first button.
+  final Widget? child;
+
+  /// Child widget for the second button.
+  final Widget? secondChild;
+
   /// Creates a single button.
   ///
   /// The [text] and [onPressed] parameters are typically required for a
@@ -153,6 +195,13 @@ class MainButton extends StatelessWidget {
     this.padding,
     this.iconSpacing = 8,
     this.isDisabled = false,
+    this.suffix,
+    this.prefix,
+    this.gradient,
+    this.boxShadow,
+    this.image,
+    this.shape,
+    this.child,
   })  : isDualLayout = false,
         secondBackgroundColor = null,
         secondBorder = null,
@@ -166,7 +215,15 @@ class MainButton extends StatelessWidget {
         secondIsLoading = false,
         secondIconSize = null,
         secondIsDisabled = false,
-        buttonSpacing = 10;
+        buttonSpacing = 10,
+        secondSuffix = null,
+        secondPrefix = null,
+        secondGradient = null,
+        secondBoxShadow = null,
+        secondImage = null,
+        secondShape = null,
+        secondChild = null,
+        assert(borderRadius == null || shape == null, "Cannot provide both a borderRadius and a shape");
 
   /// Creates two buttons displayed side by side.
   ///
@@ -199,6 +256,14 @@ class MainButton extends StatelessWidget {
     this.isLoading = false,
     this.iconSize = 20,
     this.isDisabled = false,
+    this.suffix,
+    this.prefix,
+    this.gradient,
+    this.boxShadow,
+    this.image,
+    this.shape,
+    this.child,
+
     // Second button
     this.secondBorder,
     this.secondBorderRadius,
@@ -212,13 +277,22 @@ class MainButton extends StatelessWidget {
     this.secondIsLoading = false,
     this.secondIconSize = 20,
     this.secondIsDisabled = false,
+    this.secondSuffix,
+    this.secondPrefix,
+    this.secondGradient,
+    this.secondBoxShadow,
+    this.secondImage,
+    this.secondShape,
+    this.secondChild,
+
     // Common
     this.fontSize = 16,
     this.fontWeight = FontWeight.w600,
     this.padding,
     this.iconSpacing = 8,
     this.buttonSpacing = 10,
-  }) : isDualLayout = true;
+  })  : isDualLayout = true,
+        assert(borderRadius == null || shape == null || secondBorderRadius == null || secondShape == null, "Cannot provide both a borderRadius and a shape");
 
   @override
   Widget build(BuildContext context) {
@@ -232,8 +306,7 @@ class MainButton extends StatelessWidget {
               isDisabled: isDisabled,
               borderRadius: borderRadius,
               border: border,
-              backgroundColor:
-                  backgroundColor ?? Theme.of(context).colorScheme.primary,
+              backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.primary,
               text: text,
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
@@ -242,6 +315,13 @@ class MainButton extends StatelessWidget {
               iconColor: iconColor,
               isLoading: isLoading,
               iconSize: iconSize,
+              prefix: prefix,
+              suffix: suffix,
+              gradient: gradient,
+              boxShadow: boxShadow,
+              image: image,
+              shape: shape,
+              child: child,
             ),
           ),
           SizedBox(width: buttonSpacing),
@@ -252,8 +332,7 @@ class MainButton extends StatelessWidget {
               borderRadius: secondBorderRadius,
               border: secondBorder,
               isDisabled: secondIsDisabled,
-              backgroundColor: secondBackgroundColor ??
-                  Theme.of(context).colorScheme.primary,
+              backgroundColor: secondBackgroundColor ?? Theme.of(context).colorScheme.primary,
               text: secondText,
               prefixIcon: secondPrefixIcon,
               suffixIcon: secondSuffixIcon,
@@ -262,6 +341,13 @@ class MainButton extends StatelessWidget {
               iconColor: secondIconColor,
               isLoading: secondIsLoading,
               iconSize: secondIconSize,
+              prefix: secondPrefix,
+              suffix: secondSuffix,
+              gradient: secondGradient,
+              boxShadow: secondBoxShadow,
+              image: secondImage,
+              shape: secondShape,
+              child: secondChild,
             ),
           ),
         ],
@@ -284,6 +370,13 @@ class MainButton extends StatelessWidget {
       iconColor: iconColor,
       isLoading: isLoading,
       iconSize: iconSize,
+      prefix: prefix,
+      suffix: suffix,
+      gradient: gradient,
+      boxShadow: boxShadow,
+      image: image,
+      shape: shape,
+      child: child,
     );
   }
 
@@ -303,6 +396,13 @@ class MainButton extends StatelessWidget {
     bool isLoading = false,
     double? iconSize,
     bool isDisabled = false,
+    Widget? prefix,
+    Widget? suffix,
+    Gradient? gradient,
+    List<BoxShadow>? boxShadow,
+    DecorationImage? image,
+    BoxShape? shape,
+    Widget? child,
   }) {
     final effectiveTextColor = textColor ?? Colors.white;
     final effectiveIconColor = iconColor ?? textColor ?? Colors.white;
@@ -320,57 +420,63 @@ class MainButton extends StatelessWidget {
             width: width ?? double.infinity,
             padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-              borderRadius: borderRadius ?? BorderRadius.circular(15),
+              borderRadius: shape == null ? borderRadius ?? BorderRadius.circular(15) : null,
               border: border,
               color: backgroundColor,
+              gradient: gradient,
+              boxShadow: boxShadow,
+              image: image,
+              shape: shape ?? BoxShape.rectangle,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (prefixIcon != null && !isLoading) ...[
-                  Icon(
-                    prefixIcon,
-                    color: effectiveIconColor,
-                    size: iconSize,
-                  ),
-                  SizedBox(width: iconSpacing),
-                ],
-                if (isLoading) ...[
-                  SizedBox(
-                    width: iconSize ?? 20,
-                    height: iconSize ?? 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(effectiveTextColor),
-                    ),
-                  ),
-                  if (text != null) SizedBox(width: iconSpacing),
-                ],
-                if (text != null)
-                  Flexible(
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                        color: effectiveTextColor,
-                        fontSize: fontSize,
-                        fontWeight: fontWeight,
+            child: child ??
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (prefix != null || prefixIcon != null && !isLoading) ...[
+                      prefix ??
+                          Icon(
+                            prefixIcon,
+                            color: effectiveIconColor,
+                            size: iconSize,
+                          ),
+                      SizedBox(width: iconSpacing),
+                    ],
+                    if (isLoading) ...[
+                      SizedBox(
+                        width: iconSize ?? 20,
+                        height: iconSize ?? 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(effectiveTextColor),
+                        ),
                       ),
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                if (suffixIcon != null && !isLoading) ...[
-                  SizedBox(width: iconSpacing),
-                  Icon(
-                    suffixIcon,
-                    color: effectiveIconColor,
-                    size: iconSize,
-                  ),
-                ],
-              ],
-            ),
+                      if (text != null) SizedBox(width: iconSpacing),
+                    ],
+                    if (text != null)
+                      Flexible(
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                            color: effectiveTextColor,
+                            fontSize: fontSize,
+                            fontWeight: fontWeight,
+                          ),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    if (suffix != null || suffixIcon != null && !isLoading) ...[
+                      SizedBox(width: iconSpacing),
+                      suffix ??
+                          Icon(
+                            suffixIcon,
+                            color: effectiveIconColor,
+                            size: iconSize,
+                          ),
+                    ],
+                  ],
+                ),
           ),
         ),
       ),
