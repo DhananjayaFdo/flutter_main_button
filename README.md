@@ -27,7 +27,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_main_button: ^1.0.1
+  flutter_main_button: ^1.1.0
 ```
 
 Then run:
